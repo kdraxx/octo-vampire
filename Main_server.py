@@ -3,7 +3,7 @@ import threading
 
 HEADER=64
 HEADER2=2048
-PORT=1000
+PORT=100
 SERVER= "192.168.102.206"
 
 s= socket.socket(socket.AF_INET,socket.SOCK_STREAM)
@@ -24,6 +24,7 @@ def handleclient(client, addr):
             msg=client.recv(msg_length).decode(FORMAT)
             if msg==DISCONNECT_MESSAGE:
                 connected=False
+                client.send("You have been disconnected by the host ".encode(FORMAT))
             print(f"Recieved from{addr}\nMessage:-{msg}")
             client.send("Server has recieved message".encode(FORMAT))
             send_msg = input("Enter the message to the client:")
