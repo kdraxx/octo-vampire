@@ -1,9 +1,10 @@
 import socket
 import threading
+import random
 
 HEADER=64
 HEADER2=2048
-PORT=100
+PORT=random.randint(1000,10000)
 SERVER= "192.168.102.206"
 
 s= socket.socket(socket.AF_INET,socket.SOCK_STREAM)
@@ -11,7 +12,7 @@ s= socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 
 ADDR=(SERVER,PORT)
 FORMAT="utf-8"
-DISCONNECT_MESSAGE="!DISCONNECT"
+DISCONNECT_MESSAGE="!LOGOUT"
 s.bind(ADDR)
 
 def handleclient(client, addr):
@@ -42,5 +43,5 @@ def start():
         print(f"[ACTIVE CONNECTIONS] {threading.active_count()-1}")
 
 
-print("[STARTING],Server is starting.....")
+
 start()
