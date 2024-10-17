@@ -1,0 +1,45 @@
+try:
+    connection = sql.connect(host="192.168.102.207", user="root", password="sairam")
+    main_cursor = connection.cursor()
+
+    db_creating_query = "CREATE DATABASE IF NOT EXISTS aucsof_ip"
+    main_cursor.execute(db_creating_query)
+
+    selecting_db = "USE aucsof_ip"
+    main_cursor.execute(selecting_db)
+
+    creating_tbl_for_users = ("CREATE TABLE IF NOT EXISTS users("
+                              "user_id VARCHAR(10),"
+                              "name VARCHAR(20),"
+                              "gmail VARCHAR(30),"
+                              "date_of_birth DATE,"
+                              "password VARCHAR(16),"
+                              "active ENUM('yes','no') DEFAULT 'no')")
+
+    main_cursor.execute(creating_tbl_for_users)
+
+    creating_tbl_for_products = ("CREATE TABLE IF NOT EXISTS products("
+                                 "product_id VARCHAR(6) ,"
+                                 "product VARCHAR(50),"
+                                 "last_date DATE,"
+                                 "product_desc VARCHAR(500),"
+                                 "status VARCHAR(6) DEFAULT 'unsold',"
+                                 "base_price VARCHAR(10))")
+
+    main_cursor.execute(creating_tbl_for_products)
+
+
+
+    creating_tbl_for_prodimg = """
+        CREATE TABLE IF NOT EXISTS IMAGES (
+            image_id int,
+            image LONGBLOB  
+        );
+        """
+    main_cursor.execute(creating_tbl_for_prodimg)
+
+
+    connection.commit()
+
+except sql.Error as e:
+    print(f"Error: {e}")

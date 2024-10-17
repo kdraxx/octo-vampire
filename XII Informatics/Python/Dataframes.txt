@@ -1,0 +1,78 @@
+import pandas as pd
+import numpy as np
+import mysql.connector as sql
+connection = sql.connect(host="192.168.102.206", user="root", password="sairam",database="dam")
+main_cursor=connection.cursor()
+def emp():
+    print("------------Next variation------------------")
+print("-----------USING LISTS-----------")
+l=[[1,2,3],[4,5,6]]
+df1=pd.DataFrame(l)
+print(df1)
+
+print("----------USING TUPLES------------")
+
+tup=[(1,2,3),(4,5,6)]
+df2=pd.DataFrame(tup)
+print(df2)
+
+print("----------USING DICTIONRIES------------")
+
+dict={'Cat':1,'Dog':2,'Human':3}
+df3=pd.DataFrame(dict,index=("Qty","Demand","Supply"))
+print(df3)
+emp()
+print(df3["Cat"])
+emp()
+df3["Cat"]=(3,4,5)
+print(df3)
+emp()
+try:
+    df3["Cat"]=(3,45,6,47)
+    print(df3)
+except Exception as e:
+    print(f"Throwing error:{e}")
+emp()
+try:
+    print(df3.iloc['Qty':'Demand'])
+except Exception as e:
+    print(f"Throwing error:{e} so cant pass row names as well as we cant use it to slice with column names")
+emp()
+try:
+    print(df3.loc['Cat':'Human'])
+except Exception as e:
+    print(f"For loc we can pass the row name this is the difference between loc and iloc here also we cant use it to slice with column names \n{e}")
+emp()
+#df3=df3["Cat"]*3
+print(df3["Cat"]*3)
+emp()
+print(df3["Dog"]+4)
+emp()
+print(df3)
+emp()
+print(df3.columns)
+emp()
+print(df3.index)
+emp()
+df3.loc['smtg']=[1,2,3]
+print(df3)
+emp()
+df3["Dog"]=(3,45,6,47)
+print(df3)
+emp()
+df3["Human"]=[3,14,6,32]
+print(df3)
+emp()
+df3["Surplus"]=[9,8,7,6]
+print(df3)
+emp()
+df3.drop('smtg',axis=0,inplace=True)
+print(df3)
+emp()
+df3.drop('Surplus',axis=1,inplace=True)
+print(df3)
+df3.index=('Qty','Qty Demanded','Qty Supplied')
+print(df3)
+emp()
+df3.columns=['Kitten','Doggy','Humane']
+print(df3)
