@@ -1,6 +1,0 @@
-query1 = """select images from talk_to_swami where t_id = %s""" % (text)
-curr.execute(query1)
-            data = curr.fetchone()[0]
-            image = QImage.fromData(data)
-            pixmap = QPixmap.fromImage(image)
-            self.label.setPixmap(pixmap)

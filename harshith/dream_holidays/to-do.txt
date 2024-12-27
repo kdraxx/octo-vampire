@@ -1,8 +1,0 @@
-1)select window
-2) dynamic screen 
-3) prev/ next button img
-4) administrative window
-5) record packages in database 
-6) flights?
-7)hotels
-8)
