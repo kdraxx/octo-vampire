@@ -1,0 +1,191 @@
+21.
+1. select * from info;
++-------+---------+--------+------+-----------+------------+--------+----------+
+| empid | name    | gender | age  | dept      | doj        | salary | city     |
++-------+---------+--------+------+-----------+------------+--------+----------+
+|     1 | Praveen | m      | 25   | sales     | 1989-06-08 | 20000  | chennai  |
+|     2 | Arun    | m      | 29   | Marketing | 1989-09-26 | 22000  | chennai  |
+|     3 | Usha    | f      | 27   | Finance   | 1999-08-09 | 25000  | Banglore |
+|     4 | Bala    | m      | 31   | Sales     | 1993-03-23 | 27000  | NULL     |
+|     5 | Rani    | f      | 28   | Marketing | 1993-04-23 | 27000  | Mumbai   |
+|     6 | Nisha   | f      | 26   | NULL      | 1991-02-24 | 18000  | Banglore |
+|     7 | Manoj   | m      | 32   | Finance   | 1982-05-06 | 30000  | Goa      |
++-------+---------+--------+------+-----------+------------+--------+----------+
+
+2.select name, age from info;
++---------+------+
+| name    | age  |
++---------+------+
+| Praveen | 25   |
+| Arun    | 29   |
+| Usha    | 27   |
+| Bala    | 31   |
+| Rani    | 28   |
+| Nisha   | 26   |
+| Manoj   | 32   |
++---------+------+
+
+3.select * from info where city="Chennai"
++-------+---------+--------+------+-----------+------------+--------+---------+
+| empid | name    | gender | age  | dept      | doj        | salary | city    |
++-------+---------+--------+------+-----------+------------+--------+---------+
+|     1 | Praveen | m      | 25   | sales     | 1989-06-08 | 20000  | chennai |
+|     2 | Arun    | m      | 29   | Marketing | 1989-09-26 | 22000  | chennai |
++-------+---------+--------+------+-----------+------------+--------+---------+
+
+4.select name , salary from info where salary>15000 and gender not in('m');
++-------+--------+
+| name  | salary |
++-------+--------+
+| Usha  | 25000  |
+| Rani  | 27000  |
+| Nisha | 18000  |
++-------+--------+
+
+5.update info set salary = salary *1.1 where city='chennai' and gender='m';
+Query OK, 2 rows affected (0.06 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+6.delete from info where empid=6;
+Query OK, 1 row affected (0.05 sec)
+
+22.
+1.select name from info order by name desc;
++---------+
+| name    |
++---------+
+| Usha    |
+| Rani    |
+| Praveen |
+| Manoj   |
+| Bala    |
+| Arun    |
++---------+
+
+2.select sum(salary) from info;
++-------------+
+| sum(salary) |
++-------------+
+|      155200 |
++-------------+
+
+3.select max(salary),min(salary) from info;
++-------------+-------------+
+| max(salary) | min(salary) |
++-------------+-------------+
+| 30000       | 22000       |
++-------------+-------------+
+
+4.select count(*) from info where salary>25000;
++----------+
+| count(*) |
++----------+
+|        3 |
++----------+
+
+5.select dept ,sum(salary) from info group by dept;
++-----------+-------------+
+| dept      | sum(salary) |
++-----------+-------------+
+| Finance   |       55000 |
+| Marketing |       51200 |
+| sales     |       49000 |
++-----------+-------------+
+
+6.select dept , count(*) from info group by dept having count(*)>=2;
++-----------+----------+
+| dept      | count(*) |
++-----------+----------+
+| Finance   |        2 |
+| Marketing |        2 |
+| sales     |        2 |
++-----------+----------+
+
+7.select monthname(doj) from info group by monthname(doj) having count(*)=(select count(*) from info group by monthname(doj) order by count(*) desc limit 1);
++----------------+
+| monthname(doj) |
++----------------+
+| April          |
+| August         |
+| June           |
+| March          |
+| May            |
+| September      |
++----------------+
+
+23.
+1.select pow(age,2) from info where monthname(doj)='August';
++------------+
+| pow(age,2) |
++------------+
+|        729 |
++------------+
+
+2.select lcase(dept) from info;
++-------------+
+| lcase(dept) |
++-------------+
+| sales       |
+| marketing   |
+| finance     |
+| sales       |
+| marketing   |
+| finance     |
++-------------+
+
+3.select dept,length(dept) from info group by dept;
++-----------+--------------+
+| dept      | length(dept) |
++-----------+--------------+
+| Finance   |            7 |
+| Marketing |            9 |
+| sales     |            5 |
++-----------+--------------+
+
+4. select left(name,2) from info;
++--------------+
+| left(name,2) |
++--------------+
+| Pr           |
+| Ar           |
+| Us           |
+| Ba           |
+| Ra           |
+| Ma           |
++--------------+
+
+5. select name,mid(name,3,5) from info;
++---------+---------------+
+| name    | mid(name,3,5) |
++---------+---------------+
+| Praveen | aveen         |
+| Arun    | un            |
+| Usha    | ha            |
+| Bala    | la            |
+| Rani    | ni            |
+| Manoj   | noj           |
++---------+---------------+
+
+6. select name ,dayname(doj) from info;
++---------+--------------+
+| name    | dayname(doj) |
++---------+--------------+
+| Praveen | Thursday     |
+| Arun    | Tuesday      |
+| Usha    | Monday       |
+| Bala    | Tuesday      |
+| Rani    | Friday       |
+| Manoj   | Thursday     |
++---------+--------------+
+
+24.
+1.select name,month,bonus from info i , bonuses b where i.empid=b.empid;
++---------+----------+-------+
+| name    | month    | bonus |
++---------+----------+-------+
+| Praveen | January  | 1000  |
+| Praveen | February | 1500  |
+| Arun    | January  | 1500  |
+| Usha    | February | 1500  |
+| Usha    | March    | 1000  |
++---------+----------+-------+
