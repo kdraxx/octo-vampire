@@ -1,0 +1,92 @@
+
+create table shop(Scode bigint primary key , It_name varchar(10), Company varchar(10) , Price float);
+
+
+alter table shop AUTO_INCREMENT=1000 ,modify column Scode bigint primary key AUTO_INCREMENT ;
+
+
+insert into shop values(1001,'Ballpen','Montex',5.00);
+Query OK, 1 row affected (0.04 sec)
+
+
+mysql> insert into shop values(1002,'Gelpen','Stylo',35.00);
+Query OK, 1 row affected (0.04 sec)
+
+
+mysql> insert into shop values(1003,'Pencil','Topper',75.00);
+Query OK, 1 row affected (0.04 sec)
+
+
+mysql> insert into shop values(1004,'Eraser','Stylo',10.00);
+Query OK, 1 row affected (0.07 sec)
+
+
+mysql> insert into shop values(1005,'Pencil','Camlin',25.50);
+Query OK, 1 row affected (0.05 sec)
+
+
+select * from shop;
++-------+---------+---------+-------+
+| Scode | It_name | Company | Price |
++-------+---------+---------+-------+
+|  1001 | Ballpen | Montex  |     5 |
+|  1002 | Gelpen  | Stylo   |    35 |
+|  1003 | Pencil  | Topper  |    75 |
+|  1004 | Eraser  | Stylo   |    10 |
+|  1005 | Pencil  | Camlin  |  25.5 |
++-------+---------+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from shop order by company;
++-------+---------+---------+-------+
+| Scode | It_name | Company | Price |
++-------+---------+---------+-------+
+|  1005 | Pencil  | Camlin  |  25.5 |
+|  1001 | Ballpen | Montex  |     5 |
+|  1002 | Gelpen  | Stylo   |    35 |
+|  1004 | Eraser  | Stylo   |    10 |
+|  1003 | Pencil  | Topper  |    75 |
++-------+---------+---------+-------+
+
+select ucase(it_name) from shop;
++----------------+
+| ucase(it_name) |
++----------------+
+| BALLPEN        |
+| GELPEN         |
+| PENCIL         |
+| ERASER         |
+| PENCIL         |
++----------------+
+
+select sum(price) from shop where company='Stylo';
++------------+
+| sum(price) |
++------------+
+|         45 |
++------------+
+
+ select avg(price) from shop where left(it_name , 1) in ('p');
++------------+
+| avg(price) |
++------------+
+|      50.25 |
++------------+
+
+select it_name,min(price) from shop;
++---------+------------+
+| it_name | min(price) |
++---------+------------+
+| Ballpen |          5 |
++---------+------------+
+
+ select it_name , truncate(price,0) from shop;
++---------+-------------------+
+| it_name | truncate(price,0) |
++---------+-------------------+
+| Ballpen |                 5 |
+| Gelpen  |                35 |
+| Pencil  |                75 |
+| Eraser  |                10 |
+| Pencil  |                25 |
++---------+-------------------+
